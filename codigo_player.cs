@@ -1,5 +1,6 @@
 using System.Collections; // funcao de importacao
 using System.Collections.Generic;
+using System.Drawing;
 using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -12,6 +13,11 @@ public class Player : MonoBehaviour // orientado a objetos
     public Animator anim;
     public bool isGround;
 
+
+    public Transform point;
+    public float radius;
+    private bool isAttack;
+
     void Start()
     {
         rigd = GetComponent<Rigidbody2D>();
@@ -22,7 +28,7 @@ public class Player : MonoBehaviour // orientado a objetos
     {
         Move();
         Jump();
-        // Attack();
+        Attack();
     }
 
     void Move()
@@ -54,6 +60,21 @@ public class Player : MonoBehaviour // orientado a objetos
             isGround = false;
             anim.SetInteger("Transition", 2);
         }
+    }
+    void Attack()
+    {
+        if (Input.GetButtonDown("Fire1"))
+        {
+            Collider2D hit = Physics2D.OverlapCircle(point.position, radius);
+            if (hit != null) {
+                Debug.Log(hit.name);
+            }
+        }
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(point.position, radius);
     }
 
     void OnCollisionEnter2D(Collision2D collision)
