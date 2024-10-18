@@ -58,7 +58,7 @@ public class Player : MonoBehaviour // orientado a objetos
         {
             rigd.AddForce(Vector2.up * jump_force, ForceMode2D.Impulse);
             isGround = false;
-            anim.SetInteger("Transition", 2);
+            anim.SetInteger("transition", 2);
         }
     }
     void Attack()
